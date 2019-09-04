@@ -251,7 +251,7 @@ That done, it is time to configure Centreon through the web interface. The proce
 is the same as the documentation, only paying attention to the connection data,
 since we will use ProxySQL as a MariaDB cluster connection proxy.
 
-gif animated of wizard install
+![Centreon Install Wizard](art/centreon-wizard.gif)
 
 After the installation, we will turn on the node that we left OFF:
 
