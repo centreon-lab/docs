@@ -1,8 +1,15 @@
 # Centreon in a MariaDB Cluster (Galera)
 
+MariaDB Cluster is a true multi-master Cluster based on synchronous replication. MariaDB Cluster is an easy-to-use,
+high-availability solution, which provides high system uptime, no data loss and scalability for future growth.
+
+For more information, you could take a look at this introduction video (from Galera project):
+
+https://youtu.be/n8vM_HVnnfc
+
 ![Diagram Centreon MariaDB](art/centreon-galera.png)
 
-Environment:
+### Environment:
 
  - MariaDB Server 1 = 192.168.122.11
  - MariaDB Server 2 = 192.168.122.12
@@ -50,7 +57,7 @@ Stop service MariaDB in both servers:
 systemctl stop mysql
 ```
 
-It is necessary to modify LimitNOFILE limitation:
+It is necessary to modify `LimitNOFILE` limitation:
 
 ```sh
 mkdir -p  /etc/systemd/system/mariadb.service.d/
@@ -117,8 +124,19 @@ sleep 15
 systemctl start mysql
 ```
 
+## ProxySQL
 
-Installing SQL Proxy:
+ProxySQL is a high-performance SQL proxy. The daemon accepts incoming traffic
+from MySQL clients and forwards it to backend MySQL servers. The proxy is
+designed to run continuously without needing to be restarted. Most configuration
+can be done at runtime using queries similar to SQL statements.
+These include runtime parameters, server grouping, and traffic-related settings.
+
+More information:
+ - https://proxysql.com/
+ - https://github.com/sysown/proxysql
+
+Installing SQL Proxy (in a separate server or together with the Centreon):
 
 ```sh
 yum install https://github.com/sysown/proxysql/releases/download/v2.0.6/proxysql-2.0.6-1-centos7.x86_64.rpm
@@ -214,6 +232,8 @@ For installation, We need to disable one of the nodes, leaving only one active,
 as there are many tables and rules to create, there may be inconsistency when
 balancing the connections, so we will only use one node, once installed, enable again.
 
+On ProxySQL console, run this command:
+
 ```sql
 UPDATE mysql_servers SET status='OFFLINE_SOFT' WHERE hostname='192.168.122.12';
 ```
@@ -253,7 +273,7 @@ since we will use ProxySQL as a MariaDB cluster connection proxy.
 
 ![Centreon Install Wizard](art/centreon-wizard.gif)
 
-After the installation, we will turn on the node that we left OFF:
+After the installation, we will turn on the node that we left OFF on ProxySQL console:
 
 ```sh
 mysql -u admin -padmin -h 127.0.0.1 -P6032 --prompt='Admin>'
@@ -264,7 +284,6 @@ UPDATE mysql_servers SET status='ONLINE' WHERE hostname='192.168.122.12';
 ```
 
 Now we have Centreon ready to use and its data replicated and balanced between MariaDB servers.
-
 
 Here we have a quick screencast about this installation:
 
