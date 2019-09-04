@@ -5,7 +5,8 @@ high-availability solution, which provides high system uptime, no data loss and 
 
 For more information, you could take a look at this introduction video (from Galera project):
 
-https://youtu.be/n8vM_HVnnfc
+- https://youtu.be/n8vM_HVnnfc
+- https://mariadb.com/kb/en/library/what-is-mariadb-galera-cluster/
 
 ![Diagram Centreon MariaDB](art/centreon-galera.png)
 
