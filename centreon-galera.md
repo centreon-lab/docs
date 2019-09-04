@@ -238,6 +238,8 @@ On ProxySQL console, run this command:
 UPDATE mysql_servers SET status='OFFLINE_SOFT' WHERE hostname='192.168.122.12';
 ```
 
+## Centreon
+
 Let's now install Centreon, I already left a command recipe ready here:
 
 ```sh
