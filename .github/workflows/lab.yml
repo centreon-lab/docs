@@ -8,8 +8,10 @@ on:
 jobs:
   run-lab:
     runs-on: ubuntu-latest
-    run: |
-      dmesg
-      ifconfig
-      echo "Ola mundo !"
-      echo "::notice::Ola mundo, estou vivo"
+    steps:
+      - name: Executa shell
+        run: |
+          dmesg
+          ifconfig
+          echo "Ola mundo !"
+          echo "::notice::Ola mundo, estou vivo"
