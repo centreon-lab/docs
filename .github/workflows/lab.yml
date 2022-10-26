@@ -11,7 +11,6 @@ jobs:
     steps:
       - name: Executa shell
         run: |
-          dmesg
-          ifconfig
+          apt update && apt install -y git python3-git
           echo "Ola mundo !"
           echo "::notice::Ola mundo, estou vivo"
