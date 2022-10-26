@@ -9,8 +9,13 @@ jobs:
   run-lab:
     runs-on: ubuntu-latest
     steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
       - name: Executa shell
         run: |
-          apt update && apt install -y git python3-git
+          sudo apt update && sudo apt install -y git python3-git
           echo "Ola mundo !"
           echo "::notice::Ola mundo, estou vivo"
